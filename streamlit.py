@@ -96,7 +96,7 @@ elif choose == "Visualizing":
 elif choose == "DataFrame":
     with stats_container:
         st.title("DataFrame")
-        data = pd.read_csv('.csv')
+        data = pd.read_csv('train.csv')
 
         def preprocessing(df):
                 # 오류 단지코드가 존재하는 행들을  사전에 제거
