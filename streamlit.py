@@ -6,9 +6,8 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 import plotly.express as px
 import seaborn as sns
-import matplotlib.pyplot as plt
 
-#import plotly.express as px
+
 ##################################################################################
 # st.markdown을 통해 전체 틀 고정
 st.markdown(
