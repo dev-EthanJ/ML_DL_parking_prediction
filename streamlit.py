@@ -107,25 +107,25 @@ elif choose == "Visualizing":
         df_1 = pd.read_csv('train.csv')
         df_1 = pd.merge(df_1,지역_위경도, on='지역')
         
-        def preprocessing_visualize(df):
+        def preprocessing_visualize(df_1):
                 # 오류 단지코드가 존재하는 행들을  사전에 제거
-                df_error =  ['C1095', 'C2051', 'C1218', 'C1894', 'C2483', 'C1502', 'C1988']
+                df_1_error =  ['C1095', 'C2051', 'C1218', 'C1894', 'C2483', 'C1502', 'C1988']
                 #df_error =  ['C2335', 'C1327']
-                df = df[~df['단지코드'].isin(df_error)].reset_index(drop=True)
-                df = pd.merge(df,지역_위경도, on='지역')
-                df.rename(columns = {'도보 10분거리 내 지하철역 수(환승노선 수 반영)':'지하철','도보 10분거리 내 버스정류장 수':'버스'},inplace=True)
-                df.drop(columns=['임대보증금','임대료','자격유형','임대건물구분'],axis = 1,inplace=True)
-                지역_비율 = (df.groupby(['지역'])['총세대수'].count())/(df.groupby(['지역'])['총세대수'].count().sum())*100
+                df_1 = df_1[~df_1['단지코드'].isin(df_1_error)].reset_index(drop=True)
+                df_1 = pd.merge(df_1,지역_위경도, on='지역')
+                df_1.rename(columns = {'도보 10분거리 내 지하철역 수(환승노선 수 반영)':'지하철','도보 10분거리 내 버스정류장 수':'버스'},inplace=True)
+                df_1.drop(columns=['임대보증금','임대료','자격유형','임대건물구분'],axis = 1,inplace=True)
+                지역_비율 = (df_1.groupby(['지역'])['총세대수'].count())/(df_1.groupby(['지역'])['총세대수'].count().sum())*100
                 지역_비율=지역_비율.reset_index(name='지역_비율')
-                공급유형_비율 = (df.groupby(['공급유형'])['총세대수'].count())/(df.groupby(['공급유형'])['총세대수'].count().sum())*100
+                공급유형_비율 = (df_1.groupby(['공급유형'])['총세대수'].count())/(df_1.groupby(['공급유형'])['총세대수'].count().sum())*100
                 공급유형_비율=공급유형_비율.reset_index(name='공급유형_비율')
-                df = pd.merge(df,지역_비율, on='지역')
-                df = pd.merge(df,공급유형_비율, on='공급유형')
-                df.drop(columns=['공급유형','단지코드'],axis = 1,inplace=True)
-                df=df.dropna(axis=0)
-                df = df[['지역','총세대수', '전용면적', '전용면적별세대수', '공가수', '지하철', '버스', '단지내주차면수', '공급유형_비율',
+                df_1 = pd.merge(df_1,지역_비율, on='지역')
+                df_1 = pd.merge(df_1,공급유형_비율, on='공급유형')
+                df_1.drop(columns=['공급유형','단지코드'],axis = 1,inplace=True)
+                df_1=df_1.dropna(axis=0)
+                df_1 = df_1[['지역','총세대수', '전용면적', '전용면적별세대수', '공가수', '지하철', '버스', '단지내주차면수', '공급유형_비율',
                         '지역_비율', '등록차량수','위도','경도']]
-                return df
+                return df_1
         
         df_1 = preprocessing_visualize(df_1)
         df_1 = df_1.groupby('지역').mean()
