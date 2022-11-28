@@ -94,6 +94,8 @@ elif choose == "Visualizing":
         st.write(data.describe())
         st.write('---')
         ###########################
+        
+        st.subheader("컬럼정보")
                
         st.subheader("Plotly를 이용한 Heatmap")
         fig = px.imshow(data.corr(),text_auto=True, color_continuous_scale='RdBu_r', aspect='auto')
