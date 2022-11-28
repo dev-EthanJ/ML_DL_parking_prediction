@@ -57,8 +57,6 @@ if choose == "About":
         st.subheader("Streamlit을 활용하여 ML모델을 웹으로 표현해보자!")
         st.write("---")
         st.write("")
-        link = '[GitHub](https://github.com/dev-EthanJ/ML_DL_parking_prediction)'
-        st.markdown(link, unsafe_allow_html=True)
         st.write("Visualizing: 데이터 상관관계를 그래프로 확인해보세요.")
         st.write("Predicting: 변수를 조정하여 주차수요를 예측해보세요.")
 ##################################################################################
