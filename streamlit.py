@@ -172,6 +172,25 @@ elif choose == "Predicting":
         st.title("Predicting")
         tab1, tab2, tab3, tab4, tab5 = st.tabs(["LinearRegressor", "LightGBM", "XGBRegressor", "Catboost","RNN"])
         #########################
-        
+        with tab1:
+                st.header("LinearRegressor")
+                # 첫번째 행
+                r1_col1, r1_col2, r1_col3 = st.columns(3)
+                총세대수 = r1_col1.slider("총세대수", 20, 2570)
+                전용면적 = r1_col2.slider("전용면적", 13, 590)
+                전용면적별세대수 = r1_col3.slider("전용면적별세대수", 1, 1870)
+                # 두번째 행
+                r2_col1, r2_col2, r2_col3 = st.columns(3)
+                공가수 = r2_col1.slider("공가수",0,55)
+                지하철_option = (0, 1, 2, 3)
+                지하철 = r2_col2.selectbox("지하철", 지하철_option)
+                버스 = r2_col3.slider("버스", 0,20)
+                # 세번째 행
+                r3_col1, r3_col2, r3_col3 = st.columns(3)
+                단지내주차면수 = r3_col1.slider("단지내주차면수",13,1798)
+                공급유형_비율 = r3_col2.slider("공급유형_비율",0,60)
+                지역_비율 = r3_col3.slider("지역_비율",0,21)
+                
+                
 
 ##################################################################################
