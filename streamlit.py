@@ -77,7 +77,7 @@ elif choose == "Visualizing":
                 df.drop(columns=['단지코드'],axis = 1,inplace=True)
                 df=df.dropna(axis=0)
                 df = df[['지역', '공급유형','총세대수', '전용면적', '전용면적별세대수', '공가수', '지하철', '버스', '단지내주차면수', '등록차량수']]
-        return df
+                return df
                 
         data_f = preprocessing_re(data)
         #####################################
