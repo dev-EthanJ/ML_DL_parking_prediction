@@ -201,7 +201,7 @@ elif choose == "Predicting":
                 r1_col1, r1_col2, r1_col3 = st.columns(3)
                 총세대수 = r1_col1.slider("총세대수", 26, 2568)
                 전용면적 = r1_col2.slider("전용면적", 14.1, 583.4)
-                전용면적별세대수 = r1_col3.slider("전용면적별세대수", 1, 1870)
+                전용면적별세대수 = r1_col3.slider("전용면적별세대수", 1, 1865)
                 # 두번째 행
                 r2_col1, r2_col2, r2_col3 = st.columns(3)
                 공가수 = r2_col1.slider("공가수",0,55)
