@@ -68,7 +68,21 @@ elif choose == "Visualizing":
     with visualizing_container:
         st.title("Visualizing")
         data = pd.read_csv('train.csv')
-
+        
+        def preprocessing_re(df):
+                df_error =  ['C1095', 'C2051', 'C1218', 'C1894', 'C2483', 'C1502', 'C1988']
+                df = df[~df['단지코드'].isin(df_error)].reset_index(drop=True)
+                df.rename(columns = {'도보 10분거리 내 지하철역 수(환승노선 수 반영)':'지하철','도보 10분거리 내 버스정류장 수':'버스'},inplace=True)
+                df.drop(columns=['임대보증금','임대료','자격유형','임대건물구분'],axis = 1,inplace=True)
+                df.drop(columns=['단지코드'],axis = 1,inplace=True)
+                df=df.dropna(axis=0)
+                df = df[['지역', '공급유형','총세대수', '전용면적', '전용면적별세대수', '공가수', '지하철', '버스', '단지내주차면수', '등록차량수']]
+        return df
+                
+        data_f = preprocessing_re(data)
+        #####################################
+        st.dataframe(data_f)
+        #####################################
         def preprocessing(df):
                 # 오류 단지코드가 존재하는 행들을  사전에 제거
                 df_error =  ['C1095', 'C2051', 'C1218', 'C1894', 'C2483', 'C1502', 'C1988']
@@ -89,8 +103,9 @@ elif choose == "Visualizing":
                 return df
                 
         data = preprocessing(data)
-        #####################################
+        ####################################
         st.dataframe(data)
+
         #####################################
         st.subheader("컬럼정보")
                
