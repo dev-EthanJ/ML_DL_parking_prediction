@@ -109,15 +109,16 @@ elif choose == "Visualizing":
         #####################################
         st.subheader("컬럼정보")
                
-        st.subheader("Plotly를 이용한 Heatmap")
-        fig = px.imshow(data.corr(),text_auto=True, color_continuous_scale='RdBu_r', aspect='auto')
-        st.plotly_chart(fig)
-        st.write('---')
+
         
         ###########################
         
         st.subheader("기초통계")
         st.write(data.describe())
+        #######################################
+        fig = px.imshow(data.corr(),text_auto=True, color_continuous_scale='RdBu_r', aspect='auto')
+        st.plotly_chart(fig)
+        st.write('---')
 
         ############################
         
