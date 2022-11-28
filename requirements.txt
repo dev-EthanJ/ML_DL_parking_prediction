@@ -7,4 +7,4 @@ joblib
 plotly
 seaborn
 xgboost
-webbrowser
+bokeh.models.widgets
