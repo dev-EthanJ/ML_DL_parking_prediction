@@ -87,20 +87,23 @@ elif choose == "Visualizing":
                 df = df[['총세대수', '전용면적', '전용면적별세대수', '공가수', '지하철', '버스', '단지내주차면수', '공급유형_비율',
                         '지역_비율', '등록차량수']]
                 return df
-        
+                
         data = preprocessing(data)
-        
-        st.subheader("기초통계")
-        st.write(data.describe())
-        st.write('---')
-        ###########################
-        
+        #####################################
+        st.dataframe(data)
+        #####################################
         st.subheader("컬럼정보")
                
         st.subheader("Plotly를 이용한 Heatmap")
         fig = px.imshow(data.corr(),text_auto=True, color_continuous_scale='RdBu_r', aspect='auto')
         st.plotly_chart(fig)
+        st.write('---')
         
+        ###########################
+        
+        st.subheader("기초통계")
+        st.write(data.describe())
+
         ############################
         
         지역_위경도 = pd.read_csv('지역_위경도.csv',encoding = 'cp949')
@@ -134,6 +137,10 @@ elif choose == "Visualizing":
         fig_1.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
 
         st.plotly_chart(fig_1)
+        
+        ############################
+        
+        st.write('---')
         
         df_2 = pd.read_csv('age_gender_info.csv')
         df_2 = df_2.groupby('지역').mean()
