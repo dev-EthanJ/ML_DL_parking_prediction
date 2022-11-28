@@ -52,6 +52,7 @@ forcasting_container = st.container()
 if choose == "About":
     with header_container:
         st.header("주차수요 예측하기")
+        st.image('http://cdn.joongboo.com/news/photo/201511/1025233_955571_3323.jpeg')
         st.subheader("Streamlit을 활용하여 ML모델을 웹으로 표현해보자!")
         st.write("처음 만들어 보는 ML 웹이지만, 즐겁게 봐주세요!")
         st.write("---")
