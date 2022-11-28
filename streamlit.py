@@ -6,7 +6,6 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 import plotly.express as px
 import seaborn as sns
-from lightgbm import lgbmregressor
 
 ##################################################################################
 # st.markdown을 통해 전체 틀 고정
