@@ -6,7 +6,7 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 import plotly.express as px
 import seaborn as sns
-from bokeh.models.widgets import Div
+import webbrowser
 
 #import plotly.express as px
 ##################################################################################
@@ -57,12 +57,9 @@ if choose == "About":
         st.subheader("Streamlit을 활용하여 ML모델을 웹으로 표현해보자!")
         st.write("---")
         st.write("")
-        if st.button('Go to Streamlit'):
-           js = "window.open('https://github.com/dev-EthanJ/ML_DL_parking_prediction')"  # New tab or window
-           js = "window.location.href = 'https://github.com/dev-EthanJ/ML_DL_parking_prediction'"  # Current tab
-           html = '<img src onerror="{}">'.format(js)
-           div = Div(text=html)
-           st.bokeh_chart(div)
+        url = 'https://github.com/dev-EthanJ/ML_DL_parking_prediction.git'
+        if st.button('Open browser'):
+           webbrowser.open_new_tab(url)
         st.write("Visualizing: 데이터 상관관계를 그래프로 확인해보세요.")
         st.write("Predicting: 변수를 조정하여 주차수요를 예측해보세요.")
 ##################################################################################
