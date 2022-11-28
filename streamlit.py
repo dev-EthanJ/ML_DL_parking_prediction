@@ -123,16 +123,14 @@ elif choose == "Visualizing":
                 df_1 = pd.merge(df_1,공급유형_비율, on='공급유형')
                 df_1.drop(columns=['공급유형','단지코드'],axis = 1,inplace=True)
                 df_1=df_1.dropna(axis=0)
-                df_1 = df_1[['지역','총세대수', '전용면적', '전용면적별세대수', '공가수', '지하철', '버스', '단지내주차면수', '공급유형_비율',
-                        '지역_비율', '등록차량수','위도','경도']]
+                df_1 = df_1[['지역','총세대수', '전용면적', '전용면적별세대수', '공가수', '지하철', '버스', '단지내주차면수', '공급유형_비율','지역_비율', '등록차량수','위도','경도']]
                 return df_1
         
         df_1 = preprocessing_visualize(df_1)
         df_1 = df_1.groupby('지역').mean()
         df_1 = df_1.reset_index()
         
-        fig_1 = px.scatter_mapbox(df_1, lat="위도", lon="경도", hover_name="지역", hover_data=['총세대수', '전용면적', '전용면적별세대수', '공가수', '지하철', '버스', '단지내주차면수',
-                                                                                         '공급유형_비율', '지역_비율'],color="등록차량수",color_continuous_scale=px.colors.sequential.Jet,size=df_1["등록차량수"], size_max=20, zoom=5, height=300)
+        fig_1 = px.scatter_mapbox(df_1, lat="위도", lon="경도", hover_name="지역", hover_data=['총세대수', '전용면적', '전용면적별세대수', '공가수', '지하철', '버스', '단지내주차면수','공급유형_비율', '지역_비율'],color="등록차량수",color_continuous_scale=px.colors.sequential.Jet,size=df_1["등록차량수"], size_max=20, zoom=5, height=300)
         fig_1.update_layout(mapbox_style="open-street-map")
         fig_1.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
 
