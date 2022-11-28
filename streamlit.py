@@ -69,201 +69,60 @@ if choose == "About":
 elif choose == "Visualizing":
     with visualizing_container:
         st.title("Visualizing")
-        data = pd.read_csv('titanic_data.csv')
+        data = pd.read_csv('train.csv')
 
-        def pre_processing(df : pd.DataFrame):
-            df.Embarked = df.Embarked.fillna("S")
-            df.Fare = df.Fare.fillna(0)
-            df['Title'] = df.Name.str.extract('([A-Za-z]+)\.')
-            rarelist = [a for a in set(df['Title'])
-                        if list(df['Title']).count(a) < 10]
-            df['Title'] = df['Title'].replace(rarelist, 'Rare')
-            title_age_mean = df.groupby(['Title'])['Age'].mean()
-            for v in df['Title'].unique():
-                df.loc[df.Age.isnull() & (df.Title == v), 'Age'] = title_age_mean[v]
-            df_clean = df.drop(columns=['Name', 'Ticket', 'Title', 'Cabin'])
-            return pd.get_dummies(df_clean,
-                                columns = ['Sex', 'Embarked'], drop_first=True)
+        def preprocessing(df):
+                # 오류 단지코드가 존재하는 행들을  사전에 제거
+                df_error =  ['C1095', 'C2051', 'C1218', 'C1894', 'C2483', 'C1502', 'C1988']
+                #df_error =  ['C2335', 'C1327']
+                df = df[~df['단지코드'].isin(df_error)].reset_index(drop=True)
+                df.rename(columns = {'도보 10분거리 내 지하철역 수(환승노선 수 반영)':'지하철','도보 10분거리 내 버스정류장 수':'버스'},inplace=True)
+                df.drop(columns=['임대보증금','임대료','자격유형','임대건물구분'],axis = 1,inplace=True)
+                지역_비율 = (df.groupby(['지역'])['총세대수'].count())/(df.groupby(['지역'])['총세대수'].count().sum())*100
+                지역_비율=지역_비율.reset_index(name='지역_비율')
+                공급유형_비율 = (df.groupby(['공급유형'])['총세대수'].count())/(df.groupby(['공급유형'])['총세대수'].count().sum())*100
+                공급유형_비율=공급유형_비율.reset_index(name='공급유형_비율')
+                df = pd.merge(df,지역_비율, on='지역')
+                df = pd.merge(df,공급유형_비율, on='공급유형')
+                df.drop(columns=['지역','공급유형','단지코드'],axis = 1,inplace=True)
+                df=df.dropna(axis=0)
+                df = df[['총세대수', '전용면적', '전용면적별세대수', '공가수', '지하철', '버스', '단지내주차면수', '공급유형_비율',
+                        '지역_비율', '등록차량수']]
+                return df
         
-        data = pre_processing(data)
+        data = preprocessing(data)
 
         st.subheader("Plotly를 이용한 Heatmap")
         fig = px.imshow(data.corr(),text_auto=True, color_continuous_scale='RdBu_r', aspect='auto')
         st.plotly_chart(fig)
         st.write("---")
         st.subheader("Plotly를 이용한 ScatterPlot")
-        fig2 = px.scatter_matrix(data,dimensions=data.columns,color="Survived")
+        fig2 = px.scatter_matrix(data,dimensions=data.columns,color="등록차량수")
         st.plotly_chart(fig2)
 ##################################################################################
 # DataFrame 페이지
 elif choose == "DataFrame":
     with stats_container:
         st.title("DataFrame")
-        data = pd.read_csv('titanic_data.csv')
+        data = pd.read_csv('.csv')
 
-        def pre_processing(df : pd.DataFrame):
-            df.Embarked = df.Embarked.fillna("S")
-            df.Fare = df.Fare.fillna(0)
-            df['Title'] = df.Name.str.extract('([A-Za-z]+)\.')
-            rarelist = [a for a in set(df['Title'])
-                        if list(df['Title']).count(a) < 10]
-            df['Title'] = df['Title'].replace(rarelist, 'Rare')
-            title_age_mean = df.groupby(['Title'])['Age'].mean()
-            for v in df['Title'].unique():
-                df.loc[df.Age.isnull() & (df.Title == v), 'Age'] = title_age_mean[v]
-            df_clean = df.drop(columns=['Name', 'Ticket', 'Title', 'Cabin'])
-            return pd.get_dummies(df_clean,
-                                columns = ['Sex', 'Embarked'], drop_first=True)
+        def preprocessing(df):
+                # 오류 단지코드가 존재하는 행들을  사전에 제거
+                df_error =  ['C1095', 'C2051', 'C1218', 'C1894', 'C2483', 'C1502', 'C1988']
+                #df_error =  ['C2335', 'C1327']
+                df = df[~df['단지코드'].isin(df_error)].reset_index(drop=True)
+                df.rename(columns = {'도보 10분거리 내 지하철역 수(환승노선 수 반영)':'지하철','도보 10분거리 내 버스정류장 수':'버스'},inplace=True)
+                df.drop(columns=['임대보증금','임대료','자격유형','임대건물구분'],axis = 1,inplace=True)
+                지역_비율 = (df.groupby(['지역'])['총세대수'].count())/(df.groupby(['지역'])['총세대수'].count().sum())*100
+                지역_비율=지역_비율.reset_index(name='지역_비율')
+                공급유형_비율 = (df.groupby(['공급유형'])['총세대수'].count())/(df.groupby(['공급유형'])['총세대수'].count().sum())*100
+                공급유형_비율=공급유형_비율.reset_index(name='공급유형_비율')
+                df = pd.merge(df,지역_비율, on='지역')
+                df = pd.merge(df,공급유형_비율, on='공급유형')
+                df.drop(columns=['지역','공급유형','단지코드'],axis = 1,inplace=True)
+                df=df.dropna(axis=0)
+                df = df[['총세대수', '전용면적', '전용면적별세대수', '공가수', '지하철', '버스', '단지내주차면수', '공급유형_비율',
+                        '지역_비율', '등록차량수']]
+                return df
         
-        data = pre_processing(data)
-        #######################################
-        Pclass_list = ['All'] + data['Pclass'].unique().tolist()
-        s_Pclass = st.selectbox('Pclass를 기준으로 데이터셋을 살펴보세요!', Pclass_list, key='start_station')
-        #######################################
-        # display the collected input
-        st.write('당신은 Pclass: ' + str(s_Pclass)+'를 선택하였습니다' )
-        #######################################
-        if s_Pclass != 'All':
-            display_data = data[data['Pclass'] == s_Pclass]
-
-        else:
-            display_data = data.copy()
-
-        st.write(display_data)
-        #######################################
-        st.write('---')
-        st.subheader("컬럼 정보")
-        st.write("Survived: 생존 여부 => 0 = No, 1 = Yes")
-        st.write("pclass: 티켓 등급 => 1 = 1st, 2 = 2nd, 3 = 3rd")
-        st.write("Sex: 성별")
-        st.write("Age: 나이")
-        st.write("Parch: 함께 탑승한 부모, 자식의 수")
-        st.write("Ticket: 티켓 번호")
-        st.write("Fare: 운임")
-        st.write("Embarked: 탑승 항구 => C = Cherbourg, Q = Queenstown, S = Southampton")
-        #######################################
-        st.write('---')
-        st.subheader("기초 통계")
-        st.write(data.describe())
-        #######################################
-        st.write("---")
-##################################################################################
-# Predicting 페이지
-elif choose == "Predicting":
-    with forcasting_container:
-        st.title("Predicting")
-        st.subheader("변수들을 조정하고, 예측버튼을 클릭해주세요!")
-        st.subheader("변수 설명과 유의점은 아래를 참고 부탁드립니다!!")
-        #######################################
-        # 첫번째 행
-        r1_col1, r1_col2, r1_col3 = st.columns(3)
-
-        Pclass_option = (1,2,3)
-        Pclass = r1_col1.selectbox("Pclass", Pclass_option)
-
-        Age = r1_col2.slider("Age", 0, 80)
-
-        SibSp = r1_col3.slider("SibSp", 0,8)
-        #######################################
-        # 두번째 행
-        r2_col1, r2_col2= st.columns(2)
-
-        Parch = r2_col1.slider("Parch", 0, 6)
-        Fare = r2_col2.slider("Fare", 0, 247)
-        #######################################
-        # 세번째 행
-        r3_col1, r3_col2, r3_col3= st.columns(3)
-
-        Sex_male_option = (0,1)
-        Sex_male = r3_col1.selectbox("Sex_male", Sex_male_option)
-
-        Embarked_Q_option = (0,1)
-        Embarked_Q = r3_col2.selectbox("Embarked_Q", Embarked_Q_option)
-
-        Embarked_S_option = (0,1)
-        Embarked_S = r3_col3.selectbox("Embarked_S", Embarked_S_option)
-        #######################################
-        # 네번째 행
-        st.write("---")
-        st.image('img/model_reference.png')
-        r4_col1, r4_col2= st.columns(2)
-
-        model_option = ('KNN','DecisionTree','bagging','ExtraTree','RandomForest','AdaBoosting','ExtremeBoosting','GradientBoosing','vote_soft','grid_soft')
-        model_select = r4_col1.selectbox("model_option", model_option)
-        
-        r4_col2.write(model_select+'모델 선택하였습니다')
-        # 예측 버튼
-        predict_button = st.button("예측")
-        #######################################
-        # 예측 결과
-        variable = np.array([Pclass, Age, SibSp, Parch, Fare, Sex_male, Embarked_Q,Embarked_S])
-
-        if predict_button:
-            if model_select == 'KNN':
-                model = joblib.load('pkl/knn_model.pkl')
-                pred = model.predict([variable])
-
-            if model_select == 'DecisionTree':
-                model = joblib.load('pkl/DecisionTree.pkl')
-                pred = model.predict([variable])
-
-            if model_select == 'bagging':
-                model = joblib.load('pkl/bagging.pkl')
-                pred = model.predict([variable])
-
-            if model_select == 'ExtraTree':
-                model = joblib.load('pkl/ExtraTree.pkl')
-                pred = model.predict([variable])
-
-            if model_select == 'RandomForest':
-                model = joblib.load('pkl/RandomForest.pkl')
-                pred = model.predict([variable])
-
-            if model_select == 'AdaBoosting':
-                model = joblib.load('pkl/AdaBoosting.pkl')
-                pred = model.predict([variable])
-
-            if model_select == 'ExtremeBoosting':
-                model = joblib.load('pkl/ExtremeBoosting.pkl')
-                pred = model.predict([variable])
-
-            if model_select == 'GradientBoosing':
-                model = joblib.load('pkl/GradientBoosing.pkl')
-                pred = model.predict([variable])
-
-            if model_select == 'vote_soft':
-                model = joblib.load('pkl/vote_soft.pkl')
-                pred = model.predict([variable])
-
-            if model_select == 'grid_soft':
-                model = joblib.load('pkl/grid_soft.pkl')
-                pred = model.predict([variable])
-            else:
-                pass
-
-            variable = np.array([Pclass, Age, SibSp, Parch, Fare, Sex_male, Embarked_Q,Embarked_S])
-            pred = model.predict([variable])
-
-            st.subheader("생존시:1, 사망시:0")
-            st.metric("결과: ", pred[0])
-        ################
-        st.write("---")
-        st.subheader("컬럼 정보")
-        st.write("Survived: 생존 여부 => 0 = No, 1 = Yes")
-        st.write("pclass: 티켓 등급 => 1 = 1st, 2 = 2nd, 3 = 3rd")
-        st.write("Sex: 성별")
-        st.write("Age: 나이")
-        st.write("Parch: 함께 탑승한 부모, 자식의 수")
-        st.write("Ticket: 티켓 번호")
-        st.write("Fare: 운임")
-        st.write("Embarked: 탑승 항구 => C = Cherbourg, Q = Queenstown, S = Southampton")
-        st.write("---")
-        st.subheader("변수 선택시 주의 사항")
-        st.write("Embarked Q:1 S:1 불가능")
-        st.write("Embarked Q:1 S:0 가능 => Q인 케이스")
-        st.write("Embarked Q:0 S:1 가능 => S인 케이스")
-        st.write("Embarked Q:0 S:0 가능 => C인 케이스")
-        st.write("Sex_male: 1  남성")
-        st.write("Sex_male: 0  여성")
-        st.write("---")
-        #######################################
+        data = preprocessing(data)
