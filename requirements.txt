@@ -8,4 +8,4 @@ plotly
 seaborn
 xgboost
 bokeh.models.widgets
-Div
+webbrowser
