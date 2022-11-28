@@ -134,6 +134,12 @@ elif choose == "Visualizing":
         fig_1.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
 
         st.plotly_chart(fig_1)
+        
+        df_2 = pd.read_csv('age_gender_info.csv')
+        df_2 = df_2.groupby('지역').mean()
+        
+        fig_3 = px.bar(df_2, x = df_2.index, y = df_2.columns, )
+        st.plotly_chart(fig_3)
 
 
 
