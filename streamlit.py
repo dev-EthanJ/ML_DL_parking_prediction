@@ -90,6 +90,14 @@ elif choose == "Visualizing":
                 return df
         
         data = preprocessing(data)
+        
+        st.subheader("Plotly를 이용한 Heatmap")
+        fig = px.imshow(data.corr(),text_auto=True, color_continuous_scale='RdBu_r', aspect='auto')
+        st.plotly_chart(fig)
+        st.write("---")
+        st.subheader("Plotly를 이용한 ScatterPlot")
+        fig2 = px.scatter_matrix(data,dimensions=data.columns,color="등록차량수")
+        st.plotly_chart(fig2)
 
 ##################################################################################
 # DataFrame 페이지
