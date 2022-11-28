@@ -199,8 +199,8 @@ elif choose == "Predicting":
                 st.header("LightGBM")
                 # 첫번째 행
                 r1_col1, r1_col2, r1_col3 = st.columns(3)
-                총세대수 = r1_col1.slider("총세대수", 20, 2570)
-                전용면적 = r1_col2.slider("전용면적", 13, 590)
+                총세대수 = r1_col1.slider("총세대수", 26, 2568)
+                전용면적 = r1_col2.slider("전용면적", 14.1, 583.4)
                 전용면적별세대수 = r1_col3.slider("전용면적별세대수", 1, 1870)
                 # 두번째 행
                 r2_col1, r2_col2, r2_col3 = st.columns(3)
