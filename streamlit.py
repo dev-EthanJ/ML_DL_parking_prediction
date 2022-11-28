@@ -165,6 +165,13 @@ elif choose == "Visualizing":
         st.plotly_chart(fig_3)
 
 
-
+##################################################################################
+# Predicting 페이지
+elif choose == "Predicting":
+    with forcasting_container:
+        st.title("Predicting")
+        tab1, tab2, tab3, tab4, tab5 = st.tabs(["LinearRegressor", "LightGBM", "XGBRegressor", "Catboost","RNN"])
+        #########################
+        
 
 ##################################################################################
