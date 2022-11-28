@@ -51,8 +51,7 @@ forcasting_container = st.container()
 # About 페이지
 if choose == "About":
     with header_container:
-        st.header("타이타닉 생존자 예측하기")
-        st.image('img/titanic.png')
+        st.header("주차수요 예측하기")
         st.subheader("Streamlit을 활용하여 ML모델을 웹으로 표현해보자!")
         st.write("처음 만들어 보는 ML 웹이지만, 즐겁게 봐주세요!")
         st.write("---")
@@ -63,7 +62,7 @@ if choose == "About":
         st.write("")
         st.write("1.DataFrame: 데이터셋을 자유자재로 살펴보세요.")
         st.write("2.Visualizing: 데이터 상관관계를 그래프로 확인해보세요.")
-        st.write("3.Predicting: 변수를 조정하여 생존자를 예측해보세요.")
+        st.write("3.Predicting: 변수를 조정하여 주차수요를 예측해보세요.")
 ##################################################################################
 # Visualizing 페이지
 elif choose == "Visualizing":
@@ -92,13 +91,6 @@ elif choose == "Visualizing":
         
         data = preprocessing(data)
 
-        st.subheader("Plotly를 이용한 Heatmap")
-        fig = px.imshow(data.corr(),text_auto=True, color_continuous_scale='RdBu_r', aspect='auto')
-        st.plotly_chart(fig)
-        st.write("---")
-        st.subheader("Plotly를 이용한 ScatterPlot")
-        fig2 = px.scatter_matrix(data,dimensions=data.columns,color="등록차량수")
-        st.plotly_chart(fig2)
 ##################################################################################
 # DataFrame 페이지
 elif choose == "DataFrame":
