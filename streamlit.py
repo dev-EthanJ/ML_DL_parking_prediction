@@ -57,8 +57,7 @@ if choose == "About":
         st.write("---")
         st.write("")
         link = '[GitHub](https://github.com/dev-EthanJ/ML_DL_parking_prediction.git)'
-        st.write("GitHub:")
-        st.markdown(link, unsafe_allow_html=True)
+        st.markdown("GitHUb:"link, unsafe_allow_html=True)
         st.write("Visualizing: 데이터 상관관계를 그래프로 확인해보세요.")
         st.write("Predicting: 변수를 조정하여 주차수요를 예측해보세요.")
 ##################################################################################
