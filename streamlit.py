@@ -105,7 +105,7 @@ elif choose == "Visualizing":
         
         지역_위경도 = pd.read_csv('지역_위경도.csv',encoding = 'cp949')
         df_1 = pd.read_csv('train.csv')
-        df_loca = pd.merge(df_1,지역_위경도, on='지역')
+        df_1 = pd.merge(df_1,지역_위경도, on='지역')
         
         def preprocessing_visualize(df):
                 # 오류 단지코드가 존재하는 행들을  사전에 제거
@@ -127,13 +127,12 @@ elif choose == "Visualizing":
                         '지역_비율', '등록차량수','위도','경도']]
                 return df
         
-        df_visual = preprocessing_visualize(df_loca)
-        df_visual = df_loca.groupby('지역').mean()
-        df_visual = df_loca.reset_index()
+        df_1 = preprocessing_visualize(df_1)
+        df_1 = df_1.groupby('지역').mean()
+        df_1 = df_1.reset_index()
         
-        fig_1 = px.scatter_mapbox(df_visual, lat="위도", lon="경도", hover_name="지역", hover_data=['총세대수', '전용면적', '전용면적별세대수', '공가수', '지하철', '버스', '단지내주차면수',
-       '공급유형_비율', '지역_비율'],
-                        color="등록차량수",color_continuous_scale=px.colors.sequential.Jet,size=df_visual["등록차량수"], size_max=20, zoom=5, height=300)
+        fig_1 = px.scatter_mapbox(df_1, lat="위도", lon="경도", hover_name="지역", hover_data=['총세대수', '전용면적', '전용면적별세대수', '공가수', '지하철', '버스', '단지내주차면수',
+                                                                                         '공급유형_비율', '지역_비율'],color="등록차량수",color_continuous_scale=px.colors.sequential.Jet,size=df_1["등록차량수"], size_max=20, zoom=5, height=300)
         fig_1.update_layout(mapbox_style="open-street-map")
         fig_1.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
 
