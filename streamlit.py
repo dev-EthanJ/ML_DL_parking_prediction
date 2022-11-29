@@ -80,7 +80,10 @@ elif choose == "Visualizing":
                 
         data_f = preprocessing_re(data)
         #####################################
+        st.write('---')
+        st.subheader('원본데이터')
         st.dataframe(data_f)
+        st..write('---')
         #####################################
         def preprocessing(df):
                 # 오류 단지코드가 존재하는 행들을  사전에 제거
@@ -103,10 +106,12 @@ elif choose == "Visualizing":
                 
         data = preprocessing(data)
         ####################################
+        st.subheader('전처리 데이터')
         st.dataframe(data)
+        st.('---')
 
         #####################################
-        st.subheader("컬럼정보")
+
                
 
         
@@ -116,6 +121,7 @@ elif choose == "Visualizing":
         st.write(data.describe())
         #######################################
         fig = px.imshow(data.corr(),text_auto=True, color_continuous_scale='RdBu_r', aspect='auto')
+        fig.title('컬럼 기초통계', fontsize=20)
         st.plotly_chart(fig)
         st.write('---')
 
