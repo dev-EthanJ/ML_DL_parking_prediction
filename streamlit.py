@@ -64,8 +64,6 @@ if choose == "About":
         st.markdown(link, unsafe_allow_html=True)
         link = '[PPT](https://github.com/dev-EthanJ/ML_DL_parking_prediction/blob/main/%EC%A3%BC%EC%B0%A8%EC%88%98%EC%9A%94%EC%98%88%EC%B8%A1.pptx?raw=true)'
         st.markdown(link, unsafe_allow_html=True)
-        st.write("Visualizing: 데이터 상관관계를 그래프로 확인해보세요.")
-        st.write("Predicting: 변수를 조정하여 주차수요를 예측해보세요.")
 ##################################################################################
 # Visualizing 페이지
 elif choose == "Visualizing":
