@@ -7,3 +7,6 @@ joblib
 plotly
 seaborn
 xgboost
+scikit-learn
+lightgbm
+catboost

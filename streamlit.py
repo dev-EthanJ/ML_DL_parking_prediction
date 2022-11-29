@@ -7,7 +7,6 @@ from streamlit_option_menu import option_menu
 import plotly.express as px
 import seaborn as sns
 
-
 ##################################################################################
 # st.markdown을 통해 전체 틀 고정
 st.markdown(
@@ -68,7 +67,21 @@ elif choose == "Visualizing":
     with visualizing_container:
         st.title("Visualizing")
         data = pd.read_csv('train.csv')
-
+        
+        def preprocessing_re(df):
+                df_error =  ['C1095', 'C2051', 'C1218', 'C1894', 'C2483', 'C1502', 'C1988']
+                df = df[~df['단지코드'].isin(df_error)].reset_index(drop=True)
+                df.rename(columns = {'도보 10분거리 내 지하철역 수(환승노선 수 반영)':'지하철','도보 10분거리 내 버스정류장 수':'버스'},inplace=True)
+                df.drop(columns=['임대보증금','임대료','자격유형','임대건물구분'],axis = 1,inplace=True)
+                df.drop(columns=['단지코드'],axis = 1,inplace=True)
+                df=df.dropna(axis=0)
+                df = df[['지역', '공급유형','총세대수', '전용면적', '전용면적별세대수', '공가수', '지하철', '버스', '단지내주차면수', '등록차량수']]
+                return df
+                
+        data_f = preprocessing_re(data)
+        #####################################
+        st.dataframe(data_f)
+        #####################################
         def preprocessing(df):
                 # 오류 단지코드가 존재하는 행들을  사전에 제거
                 df_error =  ['C1095', 'C2051', 'C1218', 'C1894', 'C2483', 'C1502', 'C1988']
@@ -87,20 +100,25 @@ elif choose == "Visualizing":
                 df = df[['총세대수', '전용면적', '전용면적별세대수', '공가수', '지하철', '버스', '단지내주차면수', '공급유형_비율',
                         '지역_비율', '등록차량수']]
                 return df
-        
+                
         data = preprocessing(data)
+        ####################################
+        st.dataframe(data)
+
+        #####################################
+        st.subheader("컬럼정보")
+               
+
+        
+        ###########################
         
         st.subheader("기초통계")
         st.write(data.describe())
-        st.write('---')
-        ###########################
-        
-        st.subheader("컬럼정보")
-               
-        st.subheader("Plotly를 이용한 Heatmap")
+        #######################################
         fig = px.imshow(data.corr(),text_auto=True, color_continuous_scale='RdBu_r', aspect='auto')
         st.plotly_chart(fig)
-        
+        st.write('---')
+
         ############################
         
         지역_위경도 = pd.read_csv('지역_위경도.csv',encoding = 'cp949')
@@ -135,6 +153,10 @@ elif choose == "Visualizing":
 
         st.plotly_chart(fig_1)
         
+        ############################
+        
+        st.write('---')
+        
         df_2 = pd.read_csv('age_gender_info.csv')
         df_2 = df_2.groupby('지역').mean()
         
@@ -142,6 +164,78 @@ elif choose == "Visualizing":
         st.plotly_chart(fig_3)
 
 
+##################################################################################
+# Predicting 페이지
+elif choose == "Predicting":
+    with forcasting_container:
+        st.title("Predicting")
+        tab1, tab2, tab3, tab4, tab5 = st.tabs(["LinearRegressor", "LightGBM", "XGBRegressor", "Catboost","RNN"])
+
+        #########################
+        with tab1:
+                st.header("LinearRegressor")
+                # 첫번째 행
+                r1_col1, r1_col2, r1_col3 = st.columns(3)
+                총세대수 = r1_col1.slider("총세대수", 26, 2568)
+                전용면적 = r1_col2.slider("전용면적", 14.1, 583.4)
+                전용면적별세대수 = r1_col3.slider("전용면적별세대수", 1, 1865)
+                # 두번째 행
+                r2_col1, r2_col2, r2_col3 = st.columns(3)
+                공가수 = r2_col1.slider("공가수",0,55)
+                지하철_option = (0, 1, 2, 3)
+                지하철 = r2_col2.selectbox("지하철", 지하철_option)
+                버스 = r2_col3.slider("버스", 0,20)
+                # 세번째 행
+                r3_col1, r3_col2, r3_col3 = st.columns(3)
+                단지내주차면수 = r3_col1.slider("단지내주차면수",13,1798)
+                공급유형_비율 = r3_col2.slider("공급유형_비율",0,60)
+                지역_비율 = r3_col3.slider("지역_비율",0,21)
+                predict_button = st.button("예측")
+                
+                if predict_button:
+                        variable = np.array([총세대수, 전용면적, 전용면적별세대수, 공가수, 지하철, 버스, 단지내주차면수, 공급유형_비율, 지역_비율])
+                        model = joblib.load('LinearRegression.pkl')
+                        pred = model.predict([variable])
+                
+                
+                
+                
+                ##############
+                
+                
+        with tab2:
+                st.header("LightGBM")
+                # 첫번째 행
+                r1_col1, r1_col2, r1_col3 = st.columns(3)
+                총세대수 = r1_col1.slider("총세대수.", 26, 2568)
+                전용면적 = r1_col2.slider("전용면적.", 14.1, 583.4)
+                전용면적별세대수 = r1_col3.slider("전용면적별세대수.", 1, 1865)
+                # 두번째 행
+                r2_col1, r2_col2, r2_col3 = st.columns(3)
+                공가수 = r2_col1.slider("공가수.",0,55)
+                지하철_option = (0, 1, 2, 3)
+                지하철 = r2_col2.selectbox("지하철.", 지하철_option)
+                버스 = r2_col3.slider("버스.", 0,20)
+                # 세번째 행
+                r3_col1, r3_col2, r3_col3 = st.columns(3)
+                단지내주차면수 = r3_col1.slider("단지내주차면수.",13,1798)
+                공급유형_비율 = r3_col2.slider("공급유형_비율.",0,60)
+                지역_비율 = r3_col3.slider("지역_비율.",0,21)
+                
+                variable = np.array([총세대수, 전용면적, 전용면적별세대수, 공가수, 지하철, 버스, 단지내주차면수, 공급유형_비율, 지역_비율])
+                model = joblib.load('lightgbm.pkl')
+                pred = model.predict([variable])
+                
+                #########
+                
+
+                
+                ########################
 
 
+
+
+                
+
+              
 ##################################################################################
