@@ -50,17 +50,21 @@ forcasting_container = st.container()
 # About 페이지
 if choose == "About":
     with header_container:
-        st.header("주차수요 예측하기")
         st.image('http://cdn.joongboo.com/news/photo/201511/1025233_955571_3323.jpeg')
-        st.subheader("Streamlit을 활용하여 ML모델을 웹으로 표현해보자!")
+        st.subheader("주차수요확인하기")
         st.write("---")
         st.write("")
+        st.subheader("팀원")
+        st.write("김창언: LightGBM, 자료조사,시각화")
+        st.write("도형준: CNN, PPT, 시각화 ")
+        st.write("장인성: 조장, Catboost")
+        st.write("한혜진: XGBoost, streamlit")
+        st.write("황소윤: XGBoost, streamlit")
+        st.write("---")
         link = '[GitHub](https://github.com/dev-EthanJ/ML_DL_parking_prediction.git)'
         st.markdown(link, unsafe_allow_html=True)
         link = '[PPT](https://github.com/dev-EthanJ/ML_DL_parking_prediction/blob/main/%EC%A3%BC%EC%B0%A8%EC%88%98%EC%9A%94%EC%98%88%EC%B8%A1.pptx?raw=true)'
         st.markdown(link, unsafe_allow_html=True)
-        st.write("Visualizing: 데이터 상관관계를 그래프로 확인해보세요.")
-        st.write("Predicting: 변수를 조정하여 주차수요를 예측해보세요.")
 ##################################################################################
 # Visualizing 페이지
 elif choose == "Visualizing":
