@@ -182,7 +182,7 @@ elif choose == "Predicting":
                 # 두번째 행
                 r2_col1, r2_col2, r2_col3 = st.columns(3)
                 공가수1 = r2_col1.slider("공가수",0,55)
-                지하철1_option = (0, 1, 2, 3)
+                지하철_option1 = (0, 1, 2, 3)
                 지하철1 = r2_col2.selectbox("지하철", 지하철_option1)
                 버스1 = r2_col3.slider("버스", 0,20)
                 # 세번째 행
