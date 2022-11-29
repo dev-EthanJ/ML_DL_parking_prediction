@@ -60,6 +60,7 @@ if choose == "About":
         st.write("장인성: 조장, Catboost")
         st.write("한혜진: XGBoost, streamlit")
         st.write("황소윤: XGBoost, streamlit")
+        st.write("---")
         link = '[GitHub](https://github.com/dev-EthanJ/ML_DL_parking_prediction.git)'
         st.markdown(link, unsafe_allow_html=True)
         link = '[PPT](https://github.com/dev-EthanJ/ML_DL_parking_prediction/blob/main/%EC%A3%BC%EC%B0%A8%EC%88%98%EC%9A%94%EC%98%88%EC%B8%A1.pptx?raw=true)'
