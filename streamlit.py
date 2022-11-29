@@ -243,8 +243,6 @@ elif choose == "Predicting":
                 공급유형_비율 = r3_col2.slider("공급유형_비율_xgb",0,60)
                 지역_비율 = r3_col3.slider("지역_비율_xgb",0,21)
                 
-                predict_button = st.button("예측")
-                
 
                 
                 ########################
@@ -267,8 +265,6 @@ elif choose == "Predicting":
                 단지내주차면수 = r3_col1.slider("단지내주차면수_c",13,1798)
                 공급유형_비율 = r3_col2.slider("공급유형_비율_c",0,60)
                 지역_비율 = r3_col3.slider("지역_비율_c",0,21)
-                
-                predict_button = st.button("예측")
                 
                 variable = np.array(['총세대수_c', '전용면적_c', '전용면적별세대수_c', '공가수_c', '지하철_c', '버스_c', '단지내주차면수_c', '공급유형_비율_c','지역_비율_c'])
                 model = joblib.load('Catboost_GridSearchCV_model.pkl')
