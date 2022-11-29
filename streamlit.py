@@ -221,7 +221,7 @@ elif choose == "Predicting":
                 단지내주차면수2 = r3_col1.slider("단지내주차면수.",13,1798)
                 공급유형_비율2 = r3_col2.slider("공급유형_비율.",0,60)
                 지역_비율2 = r3_col3.slider("지역_비율.",0,21)
-                predict_button2 = st.button("예측")
+                predict_button2 = st.button("lightGBM예측")
                 
                 if predict_button2:
                         variable2 = np.array([총세대수2, 전용면적2, 전용면적별세대수2, 공가수2, 지하철2, 버스2, 단지내주차면수2, 공급유형_비율2, 지역_비율2])
