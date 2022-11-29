@@ -9,3 +9,4 @@ seaborn
 xgboost
 scikit-learn
 lightgbm
+catboost
