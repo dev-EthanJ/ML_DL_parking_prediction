@@ -174,7 +174,7 @@ elif choose == "Visualizing":
         df_2 = df_2.groupby('지역').mean()
 
         fig_3 = px.bar(df_2, x = df_2.index, y = df_2.columns, )
-        fig.update_layout({"title": {"text": "지역별 세대(성별/연령)","x": 0.5, "y": 0.9,
+        fig_3.update_layout({"title": {"text": "지역별 세대(성별/연령)","x": 0.5, "y": 0.9,
                                      "font": {"size": 20}},"showlegend": True,
                                               "xaxis":{"title": "지역","showticklabels": True, "dtick": 1 },
                                               "autosize":False,"width": 800,"height": 400})
