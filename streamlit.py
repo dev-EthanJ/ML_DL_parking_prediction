@@ -196,7 +196,7 @@ elif choose == "Predicting":
                         variable = np.array([총세대수, 전용면적, 전용면적별세대수, 공가수, 지하철, 버스, 단지내주차면수, 공급유형_비율, 지역_비율])
                         model = joblib.load('LinearRegression.pkl')
                         pred = model.predict([variable])
-                
+                        st.metric("결과: ", pred[0])
                 
                 
                 
