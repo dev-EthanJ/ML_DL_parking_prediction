@@ -226,7 +226,7 @@ elif choose == "Predicting":
                 if predict_button2:
                         variable2 = np.array([총세대수2, 전용면적2, 전용면적별세대수2, 공가수2, 지하철2, 버스2, 단지내주차면수2, 공급유형_비율2, 지역_비율2])
                         model2 = joblib.load('LinearRegression.pkl')
-                        pred2 = model.predict([variable2])
+                        pred2 = model2.predict([variable2])
                         st.metric("결과: ", pred2[0])
                 
                 #########
