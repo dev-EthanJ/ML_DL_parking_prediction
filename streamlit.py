@@ -83,7 +83,7 @@ elif choose == "Visualizing":
         st.write('---')
         st.subheader('원본데이터')
         st.dataframe(data_f)
-        st..write('---')
+        st.write('---')
         #####################################
         def preprocessing(df):
                 # 오류 단지코드가 존재하는 행들을  사전에 제거
