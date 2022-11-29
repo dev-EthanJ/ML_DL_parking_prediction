@@ -121,7 +121,7 @@ elif choose == "Visualizing":
         st.write(data.describe())
         #######################################
         fig = px.imshow(data.corr(),text_auto=True, color_continuous_scale='RdBu_r', aspect='auto')
-        fig.update_layout(title='컬럼별 기초통계',xaxis_nticks=36)
+        fig.update_layout(title='컬럼별 상관관계',xaxis_nticks=36)
         st.plotly_chart(fig)
         st.write('---')
 
@@ -153,9 +153,16 @@ elif choose == "Visualizing":
         df_1 = df_1.groupby('지역').mean()
         df_1 = df_1.reset_index()
         
-        fig_1 = px.scatter_mapbox(df_1, lat="위도", lon="경도", hover_name="지역", hover_data=['총세대수', '전용면적', '전용면적별세대수', '공가수', '지하철', '버스', '단지내주차면수','공급유형_비율', '지역_비율'],color="등록차량수",color_continuous_scale=px.colors.sequential.Jet,size=df_1["등록차량수"], size_max=20, zoom=5, height=300)
+        fig_1 = px.scatter_mapbox(df_1, lat="위도", lon="경도", hover_name="지역", hover_data=['총세대수', '전용면적', '전용면적별세대수', '공가수', '지하철', '버스', '단지내주차면수',
+       '공급유형_비율', '지역_비율'],
+                        color="등록차량수",color_continuous_scale=px.colors.sequential.Jet,size=df["등록차량수"], size_max=20, zoom=5, height=300)
         fig_1.update_layout(mapbox_style="open-street-map")
         fig_1.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+        fig_1.update_layout(title=dict(text='<b>지역별 등록차량수 분포도</b><br><sup>Number of registered vehicles by region</sup>',
+                                       x=0.5,y=0.87,font=dict(family="Arial",size=25,color="#000000")
+                                       ),xaxis_title=dict(text="<b>Fail Point</b>"),
+                            yaxis_title="<b>Portion(%)</b>",font=dict(family="Courier New, Monospace",size=12,
+                                                                      color="#000000"),showlegend=False,margin = dict(l=10, r=10, b=10))
 
         st.plotly_chart(fig_1)
         
