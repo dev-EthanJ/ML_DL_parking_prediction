@@ -169,7 +169,7 @@ elif choose == "Visualizing":
 elif choose == "Predicting":
     with forcasting_container:
         st.title("Predicting")
-        tab1, tab2, tab3, tab4, tab5 = st.tabs(["LinearRegressor", "LightGBM", "XGBRegressor", "Catboost","RNN"])
+        tab1, tab2, tab3, tab4, tab5 = st.tabs(["LinearRegressor", "LightGBM", "XGBRegressor", "Catboost","CNN"])
 
         #########################
         with tab1:
@@ -279,7 +279,7 @@ elif choose == "Predicting":
                 공급유형_비율3 = r3_col2.slider("공급유형_비율_c",0,60)
                 지역_비율3 = r3_col3.slider("지역_비율_c",0,21)
                 
-                
+                predict_button4 = st.button("Catboost예측")
                 if predict_button4:
                         variable4 = np.array([총세대수_c, 전용면적_c, 전용면적별세대수_c, 공가수_c, 지하철_c, 버스_c, 단지내주차면수_c, 공급유형_비율_c, 지역_비율_c])
                         model4 = joblib.load('Catboost_GridSearchCV_model.pkl')
