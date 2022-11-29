@@ -259,6 +259,33 @@ elif choose == "Predicting":
                         st.metric("결과: ", pred3[0])
                 
                 ########################
+                
+        with tab4:
+                st.header("Catboost")
+                # 첫번째 행
+                r1_col1, r1_col2, r1_col3 = st.columns(3)
+                총세대수3 = r1_col1.slider("총세대수_c", 26, 2568)
+                전용면적3 = r1_col2.slider("전용면적_c", 14.1, 583.4)
+                전용면적별세대수3 = r1_col3.slider("전용면적별세대수_c", 1, 1865)
+                # 두번째 행
+                r2_col1, r2_col2, r2_col3 = st.columns(3)
+                공가수3 = r2_col1.slider("공가수_c",0,55)
+                지하철_c_option = (0, 1, 2, 3)
+                지하철3 = r2_col2.selectbox("지하철_c", 지하철_c_option)
+                버스3 = r2_col3.slider("버스_c", 0,20)
+                # 세번째 행
+                r3_col1, r3_col2, r3_col3 = st.columns(3)
+                단지내주차면수3 = r3_col1.slider("단지내주차면수_c",13,1798)
+                공급유형_비율3 = r3_col2.slider("공급유형_비율_c",0,60)
+                지역_비율3 = r3_col3.slider("지역_비율_c",0,21)
+                
+                
+                if predict_button4:
+                        variable4 = np.array([총세대수_c, 전용면적_c, 전용면적별세대수_c, 공가수_c, 지하철_c, 버스_c, 단지내주차면수_c, 공급유형_비율_c, 지역_비율_c])
+                        model4 = joblib.load('Catboost_GridSearchCV_model.pkl')
+                        pred4 = model4.predict([variable4])
+                        st.metric("결과: ", pred4[0])
+                
 
 
 
