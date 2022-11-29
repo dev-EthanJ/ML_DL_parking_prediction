@@ -221,9 +221,9 @@ elif choose == "Predicting":
                 단지내주차면수 = r3_col1.slider("단지내주차면수.",13,1798)
                 공급유형_비율 = r3_col2.slider("공급유형_비율.",0,60)
                 지역_비율 = r3_col3.slider("지역_비율.",0,21)
-                predict_button = st.button("예측")
+                predict_button2 = st.button("예측")
                 
-                if predict_button:
+                if predict_button2:
                         variable = np.array([총세대수, 전용면적, 전용면적별세대수, 공가수, 지하철, 버스, 단지내주차면수, 공급유형_비율, 지역_비율])
                         model = joblib.load('LinearRegression.pkl')
                         pred = model.predict([variable])
@@ -248,9 +248,9 @@ elif choose == "Predicting":
                 단지내주차면수 = r3_col1.slider("단지내주차면수_xgb",13,1798)
                 공급유형_비율 = r3_col2.slider("공급유형_비율_xgb",0,60)
                 지역_비율 = r3_col3.slider("지역_비율_xgb",0,21)
-                predict_button = st.button("예측")
+                predict_button3 = st.button("예측")
                 
-                if predict_button:
+                if predict_button3:
                         variable = np.array([총세대수, 전용면적, 전용면적별세대수, 공가수, 지하철, 버스, 단지내주차면수, 공급유형_비율, 지역_비율])
                         model = joblib.load('XGBoostingRegressor.pkl')
                         pred = model.predict([variable])
