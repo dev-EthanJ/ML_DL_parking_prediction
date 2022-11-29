@@ -193,10 +193,10 @@ elif choose == "Predicting":
                 predict_button = st.button("예측")
                 
                 if predict_button:
-                        variable = np.array([총세대수1, 전용면적1, 전용면적별세대수1, 공가수1, 지하철1, 버스1, 단지내주차면수1, 공급유형_비율1, 지역_비율1])
-                        model = joblib.load('LinearRegression.pkl')
-                        pred = model.predict([variable])
-                        st.metric("결과: ", pred[0])
+                        variable1 = np.array([총세대수1, 전용면적1, 전용면적별세대수1, 공가수1, 지하철1, 버스1, 단지내주차면수1, 공급유형_비율1, 지역_비율1])
+                        model1 = joblib.load('LinearRegression.pkl')
+                        pred1 = model1.predict([variable1])
+                        st.metric("결과: ", pred1[0])
                 
                 
                 
@@ -224,10 +224,10 @@ elif choose == "Predicting":
                 predict_button2 = st.button("예측")
                 
                 if predict_button2:
-                        variable = np.array([총세대수2, 전용면적2, 전용면적별세대수2, 공가수2, 지하철2, 버스2, 단지내주차면수2, 공급유형_비율2, 지역_비율2])
-                        model = joblib.load('LinearRegression.pkl')
-                        pred = model.predict([variable])
-                        st.metric("결과: ", pred[0])
+                        variable2 = np.array([총세대수2, 전용면적2, 전용면적별세대수2, 공가수2, 지하철2, 버스2, 단지내주차면수2, 공급유형_비율2, 지역_비율2])
+                        model2 = joblib.load('LinearRegression.pkl')
+                        pred2 = model.predict([variable2])
+                        st.metric("결과: ", pred2[0])
                 
                 #########
         with tab3:
@@ -251,10 +251,10 @@ elif choose == "Predicting":
                 predict_button3 = st.button("예측")
                 
                 if predict_button3:
-                        variable = np.array([총세대수3, 전용면적3, 전용면적별세대수3, 공가수3, 지하철3, 버스3, 단지내주차면수3, 공급유형_비율3, 지역_비율3])
-                        model = joblib.load('XGBoostingRegressor.pkl')
-                        pred = model.predict([variable])
-
+                        variable3 = np.array([총세대수3, 전용면적3, 전용면적별세대수3, 공가수3, 지하철3, 버스3, 단지내주차면수3, 공급유형_비율3, 지역_비율3])
+                        model3 = joblib.load('XGBoostingRegressor.pkl')
+                        pred3 = model3.predict([variable3])
+                        st.metric("결과: ", pred3[0])
                 
                 ########################
 
