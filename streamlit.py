@@ -80,7 +80,10 @@ elif choose == "Visualizing":
                 
         data_f = preprocessing_re(data)
         #####################################
+        st.write('---')
+        st.subheader('원본데이터')
         st.dataframe(data_f)
+        st.write('---')
         #####################################
         def preprocessing(df):
                 # 오류 단지코드가 존재하는 행들을  사전에 제거
@@ -103,10 +106,12 @@ elif choose == "Visualizing":
                 
         data = preprocessing(data)
         ####################################
+        st.subheader('전처리 데이터')
         st.dataframe(data)
+        st.write('---')
 
         #####################################
-        st.subheader("컬럼정보")
+
                
 
         
@@ -116,6 +121,7 @@ elif choose == "Visualizing":
         st.write(data.describe())
         #######################################
         fig = px.imshow(data.corr(),text_auto=True, color_continuous_scale='RdBu_r', aspect='auto')
+        fig.update_layout(title='컬럼별 상관관계',xaxis_nticks=36)
         st.plotly_chart(fig)
         st.write('---')
 
@@ -147,9 +153,16 @@ elif choose == "Visualizing":
         df_1 = df_1.groupby('지역').mean()
         df_1 = df_1.reset_index()
         
-        fig_1 = px.scatter_mapbox(df_1, lat="위도", lon="경도", hover_name="지역", hover_data=['총세대수', '전용면적', '전용면적별세대수', '공가수', '지하철', '버스', '단지내주차면수','공급유형_비율', '지역_비율'],color="등록차량수",color_continuous_scale=px.colors.sequential.Jet,size=df_1["등록차량수"], size_max=20, zoom=5, height=300)
+        fig_1 = px.scatter_mapbox(df_1, lat="위도", lon="경도", hover_name="지역", hover_data=['총세대수', '전용면적', '전용면적별세대수', '공가수', '지하철', '버스', '단지내주차면수',
+       '공급유형_비율', '지역_비율'],
+                        color="등록차량수",color_continuous_scale=px.colors.sequential.Jet,size=df_1["등록차량수"], size_max=20, zoom=5, height=300)
         fig_1.update_layout(mapbox_style="open-street-map")
         fig_1.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+        fig_1.update_layout(title=dict(text='<b>지역별 등록차량수 분포도</b><br><sup>Number of registered vehicles by region</sup>',
+                                       x=0.5,y=0.87,font=dict(family="Arial",size=25,color="#000000")
+                                       ),xaxis_title=dict(text="<b>Fail Point</b>"),
+                            yaxis_title="<b>Portion(%)</b>",font=dict(family="Courier New, Monospace",size=12,
+                                                                      color="#000000"),showlegend=False,margin = dict(l=10, r=10, b=10))
 
         st.plotly_chart(fig_1)
         
@@ -159,8 +172,13 @@ elif choose == "Visualizing":
         
         df_2 = pd.read_csv('age_gender_info.csv')
         df_2 = df_2.groupby('지역').mean()
-        
+
         fig_3 = px.bar(df_2, x = df_2.index, y = df_2.columns, )
+        fig_3.update_layout({"title": {"text": "지역별 세대(성별/연령)","x": 0.5, "y": 0.9,
+                                     "font": {"size": 20}},"showlegend": True,
+                                              "xaxis":{"title": "지역","showticklabels": True, "dtick": 1 },
+                                              "autosize":False,"width": 800,"height": 400})
+        
 
         st.plotly_chart(fig_3)
 
@@ -235,20 +253,20 @@ elif choose == "Predicting":
                 st.header("XGBoost")
                 # 첫번째 행
                 r1_col1, r1_col2, r1_col3 = st.columns(3)
-                총세대수 = r1_col1.slider("총세대수_xgb", 26, 2568)
-                전용면적 = r1_col2.slider("전용면적_xgb", 14.1, 583.4)
-                전용면적별세대수 = r1_col3.slider("전용면적별세대수_xgb", 1, 1865)
+                총세대수 = r1_col1.slider("총세대수_x", 26, 2568)
+                전용면적 = r1_col2.slider("전용면적_x", 14.1, 583.4)
+                전용면적별세대수 = r1_col3.slider("전용면적별세대수_x", 1, 1865)
                 # 두번째 행
                 r2_col1, r2_col2, r2_col3 = st.columns(3)
-                공가수 = r2_col1.slider("공가수_xgb",0,55)
+                공가수 = r2_col1.slider("공가수_x",0,55)
                 지하철_xgb_option3 = (0, 1, 2, 3)
-                지하철 = r2_col2.selectbox("지하철_xgb", 지하철_xgb_option3)
-                버스 = r2_col3.slider("버스_xgb", 0,20)
+                지하철 = r2_col2.selectbox("지하철_x", 지하철_xgb_option3)
+                버스 = r2_col3.slider("버스_x", 0,20)
                 # 세번째 행
                 r3_col1, r3_col2, r3_col3 = st.columns(3)
-                단지내주차면수 = r3_col1.slider("단지내주차면수_xgb",13,1798)
-                공급유형_비율 = r3_col2.slider("공급유형_비율_xgb",0,60)
-                지역_비율 = r3_col3.slider("지역_비율_xgb",0,21)
+                단지내주차면수 = r3_col1.slider("단지내주차면수_x",13,1798)
+                공급유형_비율 = r3_col2.slider("공급유형_비율_x",0,60)
+                지역_비율 = r3_col3.slider("지역_비율_x",0,21)
                 predict_button3 = st.button("XGBoost예측")
                 
                 if predict_button3:
@@ -258,6 +276,34 @@ elif choose == "Predicting":
                         pp.columns = ['총세대수', '전용면적', '전용면적별세대수', '공가수', '지하철', '버스', '단지내주차면수', '공급유형_비율', '지역_비율']
                         pred3 = model3.predict(pp)
                         st.metric("결과: ", pred3[0])
+                        
+                        
+        with tab4:
+                st.header("Catboost")
+                # 첫번째 행
+                r1_col1, r1_col2, r1_col3 = st.columns(3)
+                총세대수_c = r1_col1.slider("총세대수_c", 26, 2568)
+                전용면적_c = r1_col2.slider("전용면적_c", 14.1, 583.4)
+                전용면적별세대수_c = r1_col3.slider("전용면적별세대수_c", 1, 1865)
+                # 두번째 행
+                r2_col1, r2_col2, r2_col3 = st.columns(3)
+                공가수_c = r2_col1.slider("공가수_c",0,55)
+                지하철_c_option = (0, 1, 2, 3)
+                지하철_c = r2_col2.selectbox("지하철_c", 지하철_c_option)
+                버스_c = r2_col3.slider("버스_c", 0,20)
+                # 세번째 행
+                r3_col1, r3_col2, r3_col3 = st.columns(3)
+                단지내주차면수_c = r3_col1.slider("단지내주차면수_c",13,1798)
+                공급유형_비율_c = r3_col2.slider("공급유형_비율_c",0,60)
+                지역_비율_c = r3_col3.slider("지역_비율_c",0,21)
+                
+                predict_button4 = st.button("Catboost예측")
+                if predict_button4:
+                        variable4 = np.array([총세대수_c, 전용면적_c, 전용면적별세대수_c, 공가수_c, 지하철_c, 버스_c, 단지내주차면수_c, 공급유형_비율_c, 지역_비율_c])
+                        model4 = joblib.load('Catboost_GridSearchCV_model.pkl')
+                        pred4 = model4.predict([variable4])
+                        st.metric("결과: ", pred4[0])
+                        
                 
                 ########################
                 
