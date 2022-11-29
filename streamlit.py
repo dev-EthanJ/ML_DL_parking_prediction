@@ -220,32 +220,82 @@ elif choose == "Predicting":
                 model = joblib.load('lightgbm.pkl')
                 pred = model.predict([variable])
                 
+                #########
                 
+
+        with tab3:
+                st.header("XGBoost")
+                # 첫번째 행
+                r1_col1, r1_col2, r1_col3 = st.columns(3)
+                총세대수 = r1_col1.slider("총세대수_xgb", 26, 2568)
+                전용면적 = r1_col2.slider("전용면적_xgb", 14.1, 583.4)
+                전용면적별세대수 = r1_col3.slider("전용면적별세대수_xgb", 1, 1865)
+                # 두번째 행
+                r2_col1, r2_col2, r2_col3 = st.columns(3)
+                공가수 = r2_col1.slider("공가수_xgb",0,55)
+                지하철_xgb_option = (0, 1, 2, 3)
+                지하철 = r2_col2.selectbox("지하철_xgb", 지하철_xgb_option)
+                버스 = r2_col3.slider("버스_xgb", 0,20)
+                # 세번째 행
+                r3_col1, r3_col2, r3_col3 = st.columns(3)
+                단지내주차면수 = r3_col1.slider("단지내주차면수_xgb",13,1798)
+                공급유형_비율 = r3_col2.slider("공급유형_비율_xgb",0,60)
+                지역_비율 = r3_col3.slider("지역_비율_xgb",0,21)
+                
+                predict_button = st.button("예측")
+                
+
+                
+                ########################
                 
         with tab4:
                 st.header("Catboost")
                 # 첫번째 행
                 r1_col1, r1_col2, r1_col3 = st.columns(3)
-                총세대수 = r1_col1.slider("총세대수..", 26, 2568)
-                전용면적 = r1_col2.slider("전용면적..", 14.1, 583.4)
-                전용면적별세대수 = r1_col3.slider("전용면적별세대수..", 1, 1865)
+                총세대수 = r1_col1.slider("총세대수_c", 26, 2568)
+                전용면적 = r1_col2.slider("전용면적_c", 14.1, 583.4)
+                전용면적별세대수 = r1_col3.slider("전용면적별세대수_c", 1, 1865)
                 # 두번째 행
                 r2_col1, r2_col2, r2_col3 = st.columns(3)
-                공가수 = r2_col1.slider("공가수..",0,55)
-                지하철_option = (0, 1, 2, 3)
-                지하철 = r2_col2.selectbox("지하철..", 지하철_option)
-                버스 = r2_col3.slider("버스..", 0,20)
+                공가수 = r2_col1.slider("공가수_c",0,55)
+                지하철_c_option = (0, 1, 2, 3)
+                지하철 = r2_col2.selectbox("지하철_c", 지하철_c_option)
+                버스 = r2_col3.slider("버스_c", 0,20)
                 # 세번째 행
                 r3_col1, r3_col2, r3_col3 = st.columns(3)
-                단지내주차면수 = r3_col1.slider("단지내주차면수..",13,1798)
-                공급유형_비율 = r3_col2.slider("공급유형_비율..",0,60)
-                지역_비율 = r3_col3.slider("지역_비율..",0,21)
+                단지내주차면수 = r3_col1.slider("단지내주차면수_c",13,1798)
+                공급유형_비율 = r3_col2.slider("공급유형_비율_c",0,60)
+                지역_비율 = r3_col3.slider("지역_비율_c",0,21)
                 
                 predict_button = st.button("예측")
                 
-                variable = np.array(['총세대수..', '전용면적..', '전용면적별세대수..', '공가수..', '지하철..', '버스..', '단지내주차면수..', '공급유형_비율..','지역_비율..', '등록차량수..'])
+                variable = np.array(['총세대수_c', '전용면적_c', '전용면적별세대수_c', '공가수_c', '지하철_c', '버스_c', '단지내주차면수_c', '공급유형_비율_c','지역_비율_c'])
                 model = joblib.load('Catboost_GridSearchCV_model.pkl')
                 pred = model.predict([variable])
+                
+                #############################
+
+        with tab5:
+                st.header("RNN")
+                # 첫번째 행
+                r1_col1, r1_col2, r1_col3 = st.columns(3)
+                총세대수 = r1_col1.slider("총세대수_r", 26, 2568)
+                전용면적 = r1_col2.slider("전용면적_r", 14.1, 583.4)
+                전용면적별세대수 = r1_col3.slider("전용면적별세대수_r", 1, 1865)
+                # 두번째 행
+                r2_col1, r2_col2, r2_col3 = st.columns(3)
+                공가수 = r2_col1.slider("공가수_r",0,55)
+                지하철_r_option = (0, 1, 2, 3)
+                지하철 = r2_col2.selectbox("지하철_r", 지하철_r_option)
+                버스 = r2_col3.slider("버스_r", 0,20)
+                # 세번째 행
+                r3_col1, r3_col2, r3_col3 = st.columns(3)
+                단지내주차면수 = r3_col1.slider("단지내주차면수_r",13,1798)
+                공급유형_비율 = r3_col2.slider("공급유형_비율_r",0,60)
+                지역_비율 = r3_col3.slider("지역_비율_r",0,21)
+
+
+
                 
 
               
