@@ -108,7 +108,7 @@ elif choose == "Visualizing":
         ####################################
         st.subheader('전처리 데이터')
         st.dataframe(data)
-        st.('---')
+        st.write('---')
 
         #####################################
 
