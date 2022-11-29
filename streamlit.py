@@ -244,7 +244,7 @@ elif choose == "Predicting":
                 지역_비율 = r3_col3.slider("지역_비율_xgb",0,21)
                 
                 variable = np.array([총세대수, 전용면적, 전용면적별세대수, 공가수, 지하철, 버스, 단지내주차면수, 공급유형_비율, 지역_비율])
-                model = joblib.load('XGBoostingRegressor.pkl')
+                model = joblib.load('XGBRegressor.pkl')
                 pred = model.predict([variable])
                 
                 ########################
