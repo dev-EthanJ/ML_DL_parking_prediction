@@ -121,7 +121,7 @@ elif choose == "Visualizing":
         st.write(data.describe())
         #######################################
         fig = px.imshow(data.corr(),text_auto=True, color_continuous_scale='RdBu_r', aspect='auto')
-        fig.title('컬럼 기초통계', fontsize=20)
+        plt.title('컬럼 기초통계', fontsize=20)
         st.plotly_chart(fig)
         st.write('---')
 
