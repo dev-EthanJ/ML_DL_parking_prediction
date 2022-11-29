@@ -221,13 +221,39 @@ elif choose == "Predicting":
                 단지내주차면수 = r3_col1.slider("단지내주차면수.",13,1798)
                 공급유형_비율 = r3_col2.slider("공급유형_비율.",0,60)
                 지역_비율 = r3_col3.slider("지역_비율.",0,21)
+                predict_button = st.button("예측")
                 
-                variable = np.array([총세대수, 전용면적, 전용면적별세대수, 공가수, 지하철, 버스, 단지내주차면수, 공급유형_비율, 지역_비율])
-                model = joblib.load('lightgbm.pkl')
-                pred = model.predict([variable])
+                if predict_button:
+                        variable = np.array([총세대수, 전용면적, 전용면적별세대수, 공가수, 지하철, 버스, 단지내주차면수, 공급유형_비율, 지역_비율])
+                        model = joblib.load('LinearRegression.pkl')
+                        pred = model.predict([variable])
+                        st.metric("결과: ", pred[0])
                 
                 #########
+        with tab3:
+                st.header("XGBoost")
+                # 첫번째 행
+                r1_col1, r1_col2, r1_col3 = st.columns(3)
+                총세대수 = r1_col1.slider("총세대수_xgb", 26, 2568)
+                전용면적 = r1_col2.slider("전용면적_xgb", 14.1, 583.4)
+                전용면적별세대수 = r1_col3.slider("전용면적별세대수_xgb", 1, 1865)
+                # 두번째 행
+                r2_col1, r2_col2, r2_col3 = st.columns(3)
+                공가수 = r2_col1.slider("공가수_xgb",0,55)
+                지하철_xgb_option = (0, 1, 2, 3)
+                지하철 = r2_col2.selectbox("지하철_xgb", 지하철_xgb_option)
+                버스 = r2_col3.slider("버스_xgb", 0,20)
+                # 세번째 행
+                r3_col1, r3_col2, r3_col3 = st.columns(3)
+                단지내주차면수 = r3_col1.slider("단지내주차면수_xgb",13,1798)
+                공급유형_비율 = r3_col2.slider("공급유형_비율_xgb",0,60)
+                지역_비율 = r3_col3.slider("지역_비율_xgb",0,21)
+                predict_button = st.button("예측")
                 
+                if predict_button:
+                        variable = np.array([총세대수, 전용면적, 전용면적별세대수, 공가수, 지하철, 버스, 단지내주차면수, 공급유형_비율, 지역_비율])
+                        model = joblib.load('XGBoostingRegressor.pkl')
+                        pred = model.predict([variable])
 
                 
                 ########################
